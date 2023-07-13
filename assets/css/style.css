@@ -1,0 +1,42 @@
+:root {
+    --bs-gradient:linear-gradient(to right, 
+    #4558b6 ,#281764);
+    --title-color-1: rgb(227, 212, 212);
+    
+    
+  }
+
+*{
+    box-sizing: border-box;
+    
+}
+.jumbotron{
+    background-image: var(--bs-gradient);
+    color: white;
+    font-weight: bold;
+}
+
+body {
+    
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    
+    
+}
+.btn{
+    width: 100%;
+    margin: 5px 0;
+}
+
+
+.forecast{
+    
+    font-size: 0.9em;
+}
+span{
+    font-size: 1em;
+}
+li:hover{
+    background-color: lightslategray;
+    text-decoration: underline;
+}
