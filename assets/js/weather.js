@@ -26,7 +26,7 @@ fetch(cityQueryUrl)
     .then(function (data) {
       //displaySearchedCity(city);
       currentWeather(data[0].lat,data[0].lon);
-       console.log(data[0].lat);
+       
 
       if (!data.length) {        
        listUlEl.innerHTML = '<h3>No results found, search again!</h3>';
@@ -42,12 +42,41 @@ fetch(cityQueryUrl)
     });
 }
 function currentWeather(lat,lon){
-    console.log(lat,lon)
+    var currentWeatherURL= "https://api.openweathermap.org/data/2.5/weather?lat="+ lat+"&lon="+lon+"&appid="+api_key;
+    fetch(currentWeatherURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+      //displaySearchedCity(city);
+      printResults(data);
+       
+
+      if (!data.length) {        
+       listUlEl.innerHTML = '<h3>No results found, search again!</h3>';
+      } else {
+        listUlEl.textContent = '';
+        for (var i = 0; i < data.length; i++) {
+          //printResults(data.results[i]);
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }
 function displaySearchedCity(city){
     var listEl= $("<li>"+city.toUpperCase()+"</li>");
     $(listEl).attr("class","list-group-item");
     $(listEl).attr("data-value",city.toUpperCase());
     listUlEl.append(listEl);
+}
+function printResults(result){
+  var date=new Date(result.dt*1000).toLocaleDateString();
+  console.log(result.name,result.main.temp,result.wind,result.main.humidity,date)
 }
 searchFormEl.on('submit', handleSearchFormSubmit);
