@@ -27,8 +27,12 @@ body {
     width: 100%;
     margin: 5px 0;
 }
-
-
+span{
+    margin-left: 5px;
+}
+.image-size{
+    height: 1.8em;
+}
 .forecast{
     
     font-size: 0.9em;

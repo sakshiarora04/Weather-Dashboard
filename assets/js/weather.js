@@ -10,8 +10,10 @@ if(!searchInputEl.val().trim()){
     $('#no-input').modal('show');   
     return;
 }
+var input=searchInputEl.val().trim();
 
-findLatAndLong(searchInputEl.val().trim());
+findLatAndLong(input);
+searchInputEl.val("");
 }
 function findLatAndLong(city){
 var cityQueryUrl="http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=5&appid="+api_key;
@@ -53,6 +55,7 @@ function currentWeather(lat,lon){
     })
     .then(function (data) {
       //displaySearchedCity(city);
+      console.log(data)
       printResults(data);
        
 
@@ -77,6 +80,19 @@ function displaySearchedCity(city){
 }
 function printResults(result){
   var date=new Date(result.dt*1000).toLocaleDateString();
-  console.log(result.name,result.main.temp,result.wind,result.main.humidity,date)
+
+
+  var img="https://openweathermap.org/img/wn/"+result.weather[0].icon+"@2x.png"
+  var icon=$("<img src="+ img+ ">");
+  icon.addClass('image-size');
+ 
+  $('#current-city').html(result.name + " ("+date+") ");
+  $('#current-city').append(icon);
+
+  $('#temperature').html(((result.main.temp-273.15)*1.8+32).toFixed(2)+" &#8457");
+  
+  $('#wind-speed').html(((result.wind.speed)*2.237).toFixed(2)+" MPH");
+  $('#humidity').html(result.main.humidity+" %");
+  
 }
 searchFormEl.on('submit', handleSearchFormSubmit);
