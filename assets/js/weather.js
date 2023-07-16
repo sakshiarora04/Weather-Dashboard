@@ -65,7 +65,43 @@ function findLatAndLong(city) {
       $("#no-input").modal("show");
     });
 }
+// function currentWeather(lat,lon) {
+//   var currentWeatherURL =
+//     'https://api.openweathermap.org/data/2.5/weather?lat=' +
+//     lat +
+//     '&lon=' +
+//     lon +
+//     '&units=Imperial&appid=' +
+//     api_key;
+//   fetch(currentWeatherURL)
+//     .then(function (response) {
+//       if (!response.ok) {
+//         throw response.json();
+//       }
 
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       //displaySearchedCity(city);
+
+//       printCurrentResults(data);
+//       //console.log(data)
+//      //forecast(data.coord.lat,data.coord.lon)
+//       //forecast(data.id);
+
+//       if (!data.length) {
+//         listUlEl.innerHTML = "<h3>No results found, search again!</h3>";
+//       } else {
+//         listUlEl.textContent = "";
+//         for (var i = 0; i < data.length; i++) {
+//           //printResults(data.results[i]);
+//         }
+//       }
+//     })
+//     .catch(function (error) {
+//       console.error(error);
+//     });
+// }
 function forecast(lat,lon) {
   
   console.log(lat)
@@ -95,6 +131,7 @@ function forecast(lat,lon) {
       $("#no-input").modal("show");
     });
 }
+
 function displaySearchedCity(city) {
   var listEl = $("<li>" + city + "</li>");
   $(listEl).attr("class", "list-group-item");
@@ -188,4 +225,22 @@ for (let i = 0; i < cities.length; i++) {
 }   
   }
 }
-init();
+function successFunction(position) 
+{
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    forecast(lat,long);
+}
+
+
+$(document).ready(function() {
+  if (navigator.geolocation)
+  {
+      navigator.geolocation.getCurrentPosition(successFunction);
+  }
+     
+  init();   
+});
+ 
+
+
