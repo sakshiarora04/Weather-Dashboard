@@ -8,21 +8,28 @@ var cities;
 function handleSearchFormSubmit(event) {
   event.preventDefault();
  
-  var city=searchInputEl.val().toLowerCase().trim();
- 
-  var input= city.replace(/\s/g, "+");
-  if (!input) {
+  var city=searchInputEl.val().toLowerCase().trim(); 
+  
+  if (!city) {
     $("#no-input").modal("show");
     return;
   }
   searchInputEl.val("");
-  findLatAndLong(input);  
+  findLatAndLong(city);  
   
 }
 function findLatAndLong(city) {
+  var cityName= city.toLowerCase().split(' ');   
+      
+      var cName=cityName[0];
+      if(cityName[1]){
+        
+        cName=cityName[0]+'+'+cityName[1];
+        }
+      
   var cityQueryUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
-    city +
+    cName +
     "&limit=5&appid=" +
     api_key;
   fetch(cityQueryUrl)
@@ -33,14 +40,15 @@ function findLatAndLong(city) {
 
       return response.json();
     })
-    .then(function (data) {     
+    .then(function (data) {  
       var dataCity=data[0].name.toLowerCase().split(' ');
       var dCity=dataCity[0];
       if(dataCity[1]){
-      dCity=dataCity[0]+'+'+dataCity[1];
-      }
-      console.log(dataCity,city)
-      if(dCity===city){
+        dCity=dataCity[0]+'+'+dataCity[1];
+       
+        }
+        console.log(dCity,cName)
+      if(dCity===cName){
         console.log(data[0].name)
       checkLocalStorage(data[0].name);
     
@@ -160,16 +168,15 @@ function storeCities(city){
     displaySearchedCity(cities[i]);    
   }   
 }
-function runPastsearch(e){
-  console.log(e)
-// var liEl=e.target;
-// if(liEl.matches('li')){
-// var cityName= liEl.get('data-value');
-// findLatAndLong(cityName);
-}
+function runPastsearch(event){
+  
+var cityName= $(event.target).attr('data-value');
+
+findLatAndLong(cityName);
+
 }
 searchFormEl.on("submit", handleSearchFormSubmit);
-listUlEl.on('click',runPastsearch())
+listUlEl.on('click','.list-group-item',runPastsearch)
 function init(){
   cities= JSON.parse(localStorage.getItem('citiesLocal'));
 
@@ -181,7 +188,4 @@ for (let i = 0; i < cities.length; i++) {
 }   
   }
 }
-
-  init();
-
-
+init();
