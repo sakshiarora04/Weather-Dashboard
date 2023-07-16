@@ -23,6 +23,9 @@ body {
     
     
 }
+.list-group-item{
+    cursor: pointer;
+}
 .btn{
     width: 100%;
     margin: 5px 0;

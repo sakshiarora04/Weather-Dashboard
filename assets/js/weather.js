@@ -52,7 +52,7 @@ function findLatAndLong(city) {
         console.log(data[0].name)
       checkLocalStorage(data[0].name);
     
-      //currentWeather(data[0].lat, data[0].lon);
+      currentWeather(data[0].lat, data[0].lon);
       forecast(data[0].lat, data[0].lon);
       }
       else{
@@ -65,43 +65,43 @@ function findLatAndLong(city) {
       $("#no-input").modal("show");
     });
 }
-// function currentWeather(lat,lon) {
-//   var currentWeatherURL =
-//     'https://api.openweathermap.org/data/2.5/weather?lat=' +
-//     lat +
-//     '&lon=' +
-//     lon +
-//     '&units=Imperial&appid=' +
-//     api_key;
-//   fetch(currentWeatherURL)
-//     .then(function (response) {
-//       if (!response.ok) {
-//         throw response.json();
-//       }
+function currentWeather(lat,lon) {
+  var currentWeatherURL =
+    'https://api.openweathermap.org/data/2.5/weather?lat=' +
+    lat +
+    '&lon=' +
+    lon +
+    '&units=Imperial&appid=' +
+    api_key;
+  fetch(currentWeatherURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
 
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       //displaySearchedCity(city);
+      return response.json();
+    })
+    .then(function (data) {
+      //displaySearchedCity(city);
 
-//       printCurrentResults(data);
-//       //console.log(data)
-//      //forecast(data.coord.lat,data.coord.lon)
-//       //forecast(data.id);
+      printCurrentResults(data);
+      //console.log(data)
+     //forecast(data.coord.lat,data.coord.lon)
+      //forecast(data.id);
 
-//       if (!data.length) {
-//         listUlEl.innerHTML = "<h3>No results found, search again!</h3>";
-//       } else {
-//         listUlEl.textContent = "";
-//         for (var i = 0; i < data.length; i++) {
-//           //printResults(data.results[i]);
-//         }
-//       }
-//     })
-//     .catch(function (error) {
-//       console.error(error);
-//     });
-// }
+      if (!data.length) {
+        listUlEl.innerHTML = "<h3>No results found, search again!</h3>";
+      } else {
+        listUlEl.textContent = "";
+        for (var i = 0; i < data.length; i++) {
+          //printResults(data.results[i]);
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
 function forecast(lat,lon) {
   
   console.log(lat)
@@ -122,7 +122,7 @@ function forecast(lat,lon) {
         $("#no-input").modal("show");
       } else {
        
-        printCurrentResults(data)
+        //printCurrentResults(data)
         printForecastResults(data);
       }
     })
@@ -139,30 +139,67 @@ function displaySearchedCity(city) {
   listUlEl.append(listEl);
 }
 function printCurrentResults(result) {
-  var list=result.list[0];
+ // var list=result.list[0];
   //var date = new Date(list.dt * 1000).toLocaleDateString();
-  var date=dayjs.unix(list.dt).format("MM/DD/YYYY");
-  var img =
-    "https://openweathermap.org/img/wn/" + list.weather[0].icon + "@2x.png";
-  var icon = $("<img src=" + img + ">");
-  icon.addClass("image-size");
-
-  $("#current-city").html(result.city.name + " (" + date + ") ");
-  $("#current-city").append(icon);
-
-  // $("#temperature").html(
-  //   ((list.main.temp - 273.15) * 1.8 + 32).toFixed(2) + " &#8457"
-  // );
-  $("#temperature").html((list.main.temp).toFixed(2) + " &#8457");
-
-  $("#wind-speed").html((list.wind.speed * 2.237).toFixed(2) + " MPH");
-  $("#humidity").html(list.main.humidity + " %");
+  var date=dayjs.unix(result.dt).format("MM/DD/YYYY");
+   var img =
+     "https://openweathermap.org/img/wn/" +result.weather[0].icon + "@2x.png";
+   var icon = $("<img src=" + img + ">");
+   icon.addClass("image-size");
+ 
+   $("#current-city").html(result.name + " (" + date + ") ");
+   $("#current-city").append(icon);
+ 
+   // $("#temperature").html(
+   //   ((list.main.temp - 273.15) * 1.8 + 32).toFixed(2) + " &#8457"
+   // );
+   $("#temperature").html((result.main.temp).toFixed(2) + " &#8457");
+ 
+   $("#wind-speed").html((result.wind.speed * 2.237).toFixed(2) + " MPH");
+   $("#humidity").html(result.main.humidity + " %");
 }
 
+// function printForecastResults(result) {
+//   var arr=[];
+//   for (let i = 0; i < result.list.length; i++) {  
+   
+//     if(result.list[i].dt_txt.split(' ')[1]==='00:00:00'){
+//       arr.push(i);
+         
+//     }  
+//   }   
+//   console.log(arr)
+//   for (let j = 0; j < arr.length; j++) {
+//   var list=result.list[arr[j]];
+ 
+
+//  var date=dayjs.unix(list.dt).format("MM/DD/YYYY");
+
+//     var img =
+//     "https://openweathermap.org/img/wn/" + list.weather[0].icon + "@2x.png";
+//   var icon = $("<img src=" + img + ">");
+//   icon.addClass("image-size");
+// //console.log(new Date((result.list[j+1].dt)* 1000).toLocaleDateString(),result.list[j+1].dt_txt)
+//     $("#future-day" + (j+1)).html(date);
+//     $("#icon-day" + (j+1)).html(icon);
+//    // $("#temp-day" + (i)).html(((list.main.temp - 273.15) * 1.8 + 32).toFixed(2) + " &#8457");
+//     $("#temp-day" + (j+1)).html((list.main.temp).toFixed(2) + " &#8457");
+   
+//    $("#wind-day" + (j+1)).html((list.wind.speed * 2.237).toFixed(2) + " MPH");
+//     $("#humidity-day" + (j+1)).html(list.main.humidity + " %");
+      
+      
+//     }  
+
+// }
 function printForecastResults(result) {
   for (let i = 1; i <=5; i++) {
-    var list=result.list[i*8-1];
-    //var date = new Date((list.dt)* 1000).toLocaleDateString();
+    var list=result.list[i*8-1];   
+  
+    if(dayjs().format("YYYY-MM-DD")===dayjs.unix(list.dt).format("YYYY-MM-DD")){
+     
+$('.day1').html('Current day Weather');
+    }
     var date=dayjs.unix(list.dt).format("MM/DD/YYYY");
     var img =
     "https://openweathermap.org/img/wn/" + list.weather[0].icon + "@2x.png";
@@ -179,7 +216,6 @@ function printForecastResults(result) {
 
   }
 }
-
 function checkLocalStorage(city){ 
 
  if(cities===null){
@@ -213,23 +249,29 @@ findLatAndLong(cityName);
 
 }
 searchFormEl.on("submit", handleSearchFormSubmit);
-listUlEl.on('click','.list-group-item',runPastsearch)
+listUlEl.on('click','.list-group-item',runPastsearch);
+$('#clear-history').on('click',function(){
+  listUlEl.html('');
+})
 function init(){
   cities= JSON.parse(localStorage.getItem('citiesLocal'));
 
 
   listUlEl.html("");
   if(cities!=null){
-for (let i = 0; i < cities.length; i++) {
+    if(cities.length>8){cities.length=8;}
+for (let i = 0; i < cities.length; i++) {  
   displaySearchedCity(cities[i]);    
 }   
   }
+  
 }
 function successFunction(position) 
 {
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
     forecast(lat,long);
+    currentWeather(lat,long);
 }
 
 
