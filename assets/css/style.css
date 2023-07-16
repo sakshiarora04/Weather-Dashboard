@@ -44,3 +44,9 @@ li:hover{
     background-color: lightslategray;
     text-decoration: underline;
 }
+@media (min-width: 576px){
+.col-sm-2 {
+    flex: 0 0 auto;
+    width: 18%;
+}
+}
