@@ -50,7 +50,7 @@ function findLatAndLong(city) {
       var dCity = dataCity[0];
       if (dataCity[1]) {
         dCity = dataCity[0] + "+" + dataCity[1];
-      }      
+      }
       if (dCity === cName) {
         //check if it is already in local storage then remove it and add it on top
         checkLocalStorage(data[0].name);
@@ -81,7 +81,7 @@ function currentWeather(lat, lon) {
       }
       return response.json();
     })
-    .then(function (data) {      
+    .then(function (data) {
       if (data.cod != 200) {
         $("#no-input").modal("show");
       } else {
@@ -146,23 +146,25 @@ function printCurrentResults(result) {
 }
 // display 5 day weather
 function printForecastResults(result) {
-  for (let i = 1; i <= result.list.length/8; i++) {
+  for (let i = 1; i <= result.list.length / 8; i++) {
     //for same timestamp of 5 days at the time you check
     var list = result.list[i * 8 - 1];
-    if(dayjs().format("YYYY-MM-DD") === dayjs.unix(list.dt).format("YYYY-MM-DD")) {
+    if (
+      dayjs().format("YYYY-MM-DD") === dayjs.unix(list.dt).format("YYYY-MM-DD")
+    ) {
       $(".day1").html("Current day Weather");
     }
-      // convert unix timestamp
+    // convert unix timestamp
     var date = dayjs.unix(list.dt).format("MM/DD/YYYY");
-     // weather icon
+    // weather icon
     var img =
       "https://openweathermap.org/img/wn/" + list.weather[0].icon + "@2x.png";
     var icon = $("<img src=" + img + ">");
     icon.addClass("image-size");
-    
+
     $("#future-day" + i).html(date);
     $("#icon-day" + i).html(icon);
-     // if not used units=Imperial then covert temperature
+    // if not used units=Imperial then covert temperature
     // $("#temp-day" + (i)).html(((list.main.temp - 273.15) * 1.8 + 32).toFixed(2) + " &#8457");
     $("#temp-day" + i).html(list.main.temp.toFixed(2) + " &#8457");
     $("#wind-day" + i).html((list.wind.speed * 2.237).toFixed(2) + " MPH");
@@ -177,7 +179,7 @@ function printForecastResults(result) {
 //     if(result.list[i].dt_txt.split(' ')[1]==='12:00:00'){
 //       arr.push(i);
 //     }
-//   } 
+//   }
 //   for (let j = 0; j < arr.length; j++) {
 //   var list=result.list[arr[j]];
 //  var date=dayjs.unix(list.dt).format("MM/DD/YYYY");
@@ -201,7 +203,7 @@ function checkLocalStorage(city) {
   } else {
     for (var i = 0; i < cities.length; i++) {
       if (cities[i].toLowerCase() === city.toLowerCase()) {
-        cities.splice(i,1);        
+        cities.splice(i, 1);
       }
     }
     storeCities(city);
@@ -222,7 +224,7 @@ function runPastsearch(event) {
   findLatAndLong(cityName);
 }
 
-$("#clear-history").on("click", function () {  
+$("#clear-history").on("click", function () {
   localStorage.clear();
   listUlEl.html("");
   init();
@@ -236,8 +238,8 @@ function init() {
   cities = JSON.parse(localStorage.getItem("citiesLocal"));
   listUlEl.html("");
   if (cities != null) {
-    if (cities.length > 8) {
-      cities.length = 8;
+    if (cities.length > 10) {
+      cities.splice(cities.length-1,1);
     }
     for (let i = 0; i < cities.length; i++) {
       displaySearchedCity(cities[i]);
