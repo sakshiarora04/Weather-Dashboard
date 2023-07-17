@@ -14,74 +14,22 @@ Clone the Repository from GitHub (or) Download Zip Folder from Repository from G
 - When user search for a city then results are displayed with current and future conditions for that city and that city is added to the search history
 - In current weather conditions for that city,  it displays city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed.
 - In future weather conditions for that city, it represents a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity.
--When we click on a city in the search history then we are again presented with current and future conditions for that city
+- When we click on a city in the search history then we are again presented with current and future conditions for that city
 
 
 ## Mock-Up
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Current location.](./assets/images/weatherdashboard.gif)
 
-## Grading Requirements
+Link to website :
 
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
+https://sakshiarora04.github.io/Weather-Dashboard/
 
-This Challenge is graded based on the following criteria: 
+## Technologies
 
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
-
-- - -
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+- HTML & CSS
+- jQuery
+- Open Weather 5 Day / 3 Hour Forecast API
+- Day.js
