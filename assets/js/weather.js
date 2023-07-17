@@ -33,7 +33,7 @@ function findLatAndLong(city) {
     cName = cityName[0] + "+" + cityName[1];
   }
   var cityQueryUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cName +
     "&limit=5&appid=" +
     api_key;
