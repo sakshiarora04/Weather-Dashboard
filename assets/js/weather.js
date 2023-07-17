@@ -222,9 +222,10 @@ function runPastsearch(event) {
   findLatAndLong(cityName);
 }
 
-$("#clear-history").on("click", function () {
-  listUlEl.html("");
+$("#clear-history").on("click", function () {  
   localStorage.clear();
+  listUlEl.html("");
+  init();
 });
 
 searchFormEl.on("submit", handleSearchFormSubmit);
