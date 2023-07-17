@@ -94,8 +94,7 @@ function currentWeather(lat, lon) {
     });
 }
 // fetch 5 day weather with searched city's lat and long
-function forecast(lat, lon) {
-  console.log(lat);
+function forecast(lat, lon) { 
   var forecastURL =
     "https://api.openweathermap.org/data/2.5/forecast?lat=" +
     lat +
